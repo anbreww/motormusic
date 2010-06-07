@@ -12,6 +12,7 @@
 #include "music.h"
 
 #include <util/delay.h>
+#include "uart.h"
 
 #include <avr/pgmspace.h>
 
@@ -19,13 +20,16 @@
 #define DEBUG_PORT  PORTA
 #define DEBUG_PINS  PINA
 
-#define TEMPO   500 /* in ms */
+#define TEMPO   200 /* in ms */
 
 int main(void)
 {
     // init i/o
     DEBUG_PORT = 0x00;
     DEBUG_DDR = 0xFF;
+    uart_init(0,0,0,0,0);
+    uart_transmit_byte_block('\n');
+    uart_transmit_byte_block('\r');
     // init timers
     // setup pointers? (to melody and notes)
     int i;
@@ -35,13 +39,17 @@ int main(void)
     for(i = 0; i < MELODY_LENGTH; i++)
     {
         // load note
-        note = pgm_read_byte(melody[i][0]);
-        freq = pgm_read_word(notes[note]);
-        duration = pgm_read_byte(melody[i][1]);
+        note = pgm_read_byte(&melody[i][0]);
+        freq = pgm_read_word(&notes[note]);
+        duration = pgm_read_byte(&melody[i][1]);
+
+    	DEBUG_PORT = (freq & 0xFF);
+    	uart_transmit_byte_block(note);
+    	uart_transmit_byte_block(freq);
+    	uart_transmit_byte_block(' ');
 
         while (duration > 0)
         {
-            DEBUG_PORT = (freq & 0xFF);
             _delay_ms(TEMPO);
             duration--;
         }

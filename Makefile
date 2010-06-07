@@ -77,7 +77,7 @@ PROJECTNAME=motormusic
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-PRJSRC=main.c
+PRJSRC=main.c uart.c
 
 # additional includes (e.g. -I/path/to/mydir)
 INC=#/data/programming/avr/libs
@@ -229,7 +229,7 @@ pygaload: hex
 	$(PYGALOAD) $(HEXROMTRG) -p $(PYGALOAD_PORT) -V
 
 # change this to "writeflash" to use avrdude by default
-install: pygaload
+install: writeflash
 
 $(DUMPTRG): $(TRG) 
 	$(OBJDUMP) -S  $< > $@

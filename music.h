@@ -44,13 +44,22 @@ typedef enum NOTES_enum
  * {note, duration}, where note is a position in the notes[] table,
  * and duration is in n*tempo duration
  */
-#define MELODY_LENGTH   5
+
+
+#define MELODY_LENGTH   16
 const uint8_t melody[MELODY_LENGTH][2] PROGMEM = {
     {A1, 2},
-    {B1, 10},
-    {C2, 5},
-    {F1, 1},
-    {A2, 1}
+    {B1, 4},
+    {C1, 8},
+    {D1, 2},
+    {E1, 10},
+    {A2, 5},
+    {B2, 2},
+    {C2, 2},
+    {B2, 2},
+    {C2, 2},
+    {B2, 2},
+    {C2, 2}
 };
 
 /*
