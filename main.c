@@ -20,7 +20,7 @@
 #define DEBUG_PORT  PORTA
 #define DEBUG_PINS  PINA
 
-#define TEMPO   200 /* in ms */
+#define TEMPO   50 /* in ms */
 
 int main(void)
 {
@@ -44,7 +44,7 @@ int main(void)
         duration = pgm_read_byte(&melody[i][1]);
 
     	DEBUG_PORT = (freq & 0xFF);
-    	uart_transmit_byte_block(note);
+    	//uart_transmit_byte_block(note);
     	uart_transmit_byte_block(freq);
     	uart_transmit_byte_block(' ');
 
